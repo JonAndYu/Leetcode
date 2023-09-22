@@ -7,11 +7,8 @@ class RecentCounter {
 
     public ping(t: number): number {
         this.counter.push(t);
-        return this.requestGetter(t);
-    }
-
-    private requestGetter(t: number): number {
-        return this.counter.reduce((acc, val) => val >= t - 3000 ? acc + 1 : acc, 0);
+        while (this.counter[0] < t-3000) this.counter.shift();
+        return this.counter.length;
     }
 }
 
