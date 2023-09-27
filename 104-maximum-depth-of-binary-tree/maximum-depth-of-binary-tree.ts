@@ -11,9 +11,28 @@
  *     }
  * }
  */
+// dfs
+// function maxDepth(root: TreeNode | null): number {
+//     if (!root) return 0;
+
+//     return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1
+// };
 
 function maxDepth(root: TreeNode | null): number {
     if (!root) return 0;
 
-    return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1
+    let queue = [root];
+
+    let ans = 0;
+
+    while (queue.length > 0) {
+        let currSize = queue.length;
+        for (let i = 0; i < currSize; i++) {
+            let currNode = queue.shift();
+            if (currNode.left) queue.push(currNode.left);
+            if (currNode.right) queue.push(currNode.right);
+        }
+        ans++;
+    }
+    return ans;
 };
