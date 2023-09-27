@@ -7,7 +7,7 @@ function maxSubArray(nums: number[]): number {
         if (curr < 0) {
             curr = 0;
         }
-        curr = curr + num;
+        curr += num;
         res = Math.max(res, curr);
     }
 
