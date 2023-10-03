@@ -16,8 +16,8 @@ function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | nul
     let remainder = 0;
 
     while (l1 || l2 || remainder !== 0) {
-        let val1 = l1 ? l1.val : 0;
-        let val2 = l2 ? l2.val : 0;
+        let val1 = l1?.val || 0;
+        let val2 = l2?.val || 0;
 
         let total = (val1+val2+remainder);
         curr.next = new ListNode(total % 10);
