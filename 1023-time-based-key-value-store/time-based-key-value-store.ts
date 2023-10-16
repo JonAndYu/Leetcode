@@ -1,38 +1,40 @@
+type Tuple = [string, number]; // Define the tuple type
+
 class TimeMap {
-    private _map: Map<string, string[]>
+    private _map: Map<string, Tuple[]>;
+
     constructor() {
-        this._map = new Map<string, string[]>();
+        this._map = new Map<string, Tuple[]>();
     }
 
     set(key: string, value: string, timestamp: number): void {
-        if (this._map.has(key)) {
-            const arr = this._map.get(key);
-            arr[timestamp] = value;
-        } else {
-            const arr = Array(timestamp + 1).fill(undefined);
-            arr[timestamp] = value;
-            this._map.set(key, arr)
+        if (!this._map.has(key)) {
+            this._map.set(key, []);
         }
+        this._map.get(key)?.push([value, timestamp]);
     }
 
     get(key: string, timestamp: number): string {
-        if (!this._map.has(key)) return "";
+        let res = "";
+        //binary search
+        let values = this._map.get(key);
 
-        let arr = this._map.get(key);
+        let left = 0;
+        let right = (values?.length || 0) - 1;
 
-        // Search by performing a binary search
+        while (left <= right) {
+            let mid = Math.floor((left+right) / 2);
+            let [mVal, mTime] = values[mid];
 
-        /*
-            If that wasn't the case, we need to perform binary search to effiicnetly
-            find the elemnt that is 
-        */
-
-        for (let i = timestamp; i >= 0; i--) {
-            if (arr[i] !== undefined) return arr[i]
+            if (mTime > timestamp) {
+                right = mid - 1; 
+            } else if (mTime <= timestamp) {
+                left = mid + 1;
+                res = mVal
+            }
         }
-
-        return "";
-    } 
+        return res;
+    }
 }
 
 /**
