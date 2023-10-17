@@ -1,6 +1,4 @@
 function wordBreak(s: string, wordDict: string[]): boolean {
-    wordDict.sort((a, b) => b.length - a.length);
-
     const memo: Record<string, boolean> = {};
     
     function backtrack(s: string): boolean {
