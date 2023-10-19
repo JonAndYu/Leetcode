@@ -3,10 +3,6 @@ interface StackTuple {
   index: number;
 }
 
-function dailyTemperatures(temperatures: number[]): number[] {
-    // We fill zero cause it's base case
-    let result = new Array(temperatures.length).fill(0);
-    let stack: StackTuple[] = []; // Decreasing monotonic stack.
     /*
         Before each item is added, we'd check the stack.
         IF the latest item in the stack has a lesser temperature.
@@ -14,22 +10,17 @@ function dailyTemperatures(temperatures: number[]): number[] {
         a warmer temperature
     */
 
+function dailyTemperatures(temperatures: number[]): number[] {
+    let result = new Array(temperatures.length).fill(0);
+    let stack: StackTuple[] = []; // Decreasing monotonic stack.
+
     temperatures.forEach((temp, i) => {
-        if (stack.length === 0) {
-            stack.push({
-                temperature: temp,
-                index: i
-            });
-        } else {
-            while (stack.length > 0 && stack[stack.length - 1]['temperature'] < temp) {
-                const { temperature, index } = stack.pop();
-                result[index] = i - index;
-            }
-            stack.push({
-                temperature: temp,
-                index: i
-            });   
+        while (stack.length > 0 && stack[stack.length - 1]['temperature'] < temp) {
+            const { temperature: _, index } = stack.pop();
+            result[index] = i - index;
         }
-    });
+        stack.push({ temperature: temp, index: i });   
+    }
+    );
     return result;
 };
