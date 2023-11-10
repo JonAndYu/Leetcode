@@ -20,7 +20,6 @@ function threeSum(nums: number[]): number[][] {
             if (sum === 0) {
                 triplets.push([firstNum, secondNum, thirdNum]);
                 while (left < right && nums[left] === nums[left+1]) left++;
-                while (left < right && nums[right] === nums[right - 1]) right--;
                 left++;
                 right--;
             } else if (sum > 0) {
