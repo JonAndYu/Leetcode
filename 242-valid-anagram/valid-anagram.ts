@@ -1,0 +1,1 @@
+var isAnagram = (s, t) => s.split('').sort().join('') === t.split('').sort().join('') ? true : false
