@@ -1,11 +1,14 @@
-function isAnagram(s: string, t: string): boolean {
-    if (s.length !== t.length) return false;
+function isAnagram(s, t) {
+        if (s.length !== t.length) return false;
 
-    let sFreqMap = s.split('').reduce((acc, v) => (acc[v] = (acc[v] ?? 0) + 1, acc), {});
-    let tFreqMap = t.split('').reduce((acc, v) => (acc[v] = (acc[v] ?? 0) + 1, acc), {});
+        let sFreq = s.split('').reduce((acc, v) => (acc[v] = (acc[v] ?? 0) + 1, acc), {});
 
-    for (let char in sFreqMap) {
-        if (sFreqMap[char] !== tFreqMap[char]) return false;
+        for (let c of t) {
+            if (sFreq.hasOwnProperty(c) && sFreq[c] > 0) {
+                sFreq[c]--;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
-    return true;
-};
